@@ -1,0 +1,9 @@
+[environments]
+  [environments.development]
+    name = "example-nodejs"
+    namespace = "default"
+    wait = false
+    watch = true
+    watch-delay = 2
+    auto-connect = true
+    chart = ""

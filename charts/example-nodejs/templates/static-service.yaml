@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ template "example-nodejs.static.name" . }}
+  labels:
+    kubed: {{ template "example-nodejs.name" . }}
+    component: static
+spec:
+  selector:
+    kubed: {{ template "example-nodejs.name" . }}
+    component: static
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http

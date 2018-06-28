@@ -1,0 +1,17 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ template "example-nodejs.helloworld.name" . }}
+  labels:
+    kubed: {{ template "example-nodejs.name" . }}
+    component: helloworld
+    generator: nodejs
+spec:
+  selector:
+    kubed: {{ template "example-nodejs.name" . }}
+    component: helloworld
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http

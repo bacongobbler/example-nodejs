@@ -1,0 +1,17 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ template "example-nodejs.goodbyeworld.name" . }}
+  labels:
+    kubed: {{ template "example-nodejs.name" . }}
+    component: goodbyeworld
+    generator: nodejs
+spec:
+  selector:
+    kubed: {{ template "example-nodejs.name" . }}
+    component: goodbyeworld
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http

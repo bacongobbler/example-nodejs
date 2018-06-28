@@ -1,0 +1,30 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ template "example-nodejs.helloworld.name" . }}
+  labels:
+    kubed: {{ template "example-nodejs.name" . }}
+    component: helloworld
+    generator: nodejs
+spec:
+  selector:
+    matchLabels:
+      kubed: {{ template "example-nodejs.name" . }}
+      component: helloworld
+  replicas: {{ default .Values.helloworld.replicaCount 1 }}
+  template:
+    metadata:
+      annotations:
+        buildID: {{ .Values.buildID }}
+      labels:
+        kubed: {{ template "example-nodejs.name" . }}
+        component: helloworld
+    spec:
+      containers:
+        - name: helloworld
+          image: "{{ .Values.helloworld.image.repository }}:{{ .Values.helloworld.image.tag }}"
+          imagePullPolicy: {{ default .Values.helloworld.image.pullPolicy "IfNotPresent" }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
